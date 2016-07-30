@@ -91,7 +91,7 @@ func (t *PGPTransformer) loadKey(path, wantID, passphrase string) (*openpgp.Enti
 			for _, subKey := range key.Subkeys {
 				id = subKey.PublicKey.KeyIdString()
 				logger.Infof("loaded subkey with keyid=%s", id)
-				foundKey = subKey
+				foundKey := subKey
 				if foundKey == nil {
 					logger.Infof("loaded subkey with keyid=%s continuing due to foundkey", id)
 					continue
