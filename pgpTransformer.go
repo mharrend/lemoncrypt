@@ -78,7 +78,7 @@ func (t *PGPTransformer) loadKey(path, wantID, passphrase string) (*openpgp.Enti
 				logger.Infof("continuing due to foundkey", id)
 				continue
 			}
-			test = foundKey.Subkeys
+			test := foundKey.Subkeys
 			priv := test[0].PrivateKey
 			if priv == nil {
 				logger.Infof("trying subkeys for foundkey ", id)
