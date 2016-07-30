@@ -75,10 +75,12 @@ func (t *PGPTransformer) loadKey(path, wantID, passphrase string) (*openpgp.Enti
 			foundKey = key
 			logger.Infof("loaded key with keyid=%s", id)
 			if foundKey == nil {
+				logger.Infof("loaded key with keyid=%s continuing due to foundkey", id)
 				continue
 			}
 			priv := foundKey.PrivateKey
 			if priv == nil {
+				logger.Infof("loaded key with keyid=%s continuing due to priv", id)
 				continue
 			}
 			break
