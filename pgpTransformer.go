@@ -78,40 +78,13 @@ func (t *PGPTransformer) loadKey(path, wantID, passphrase string) (*openpgp.Enti
 				logger.Infof("continuing due to foundkey", id)
 				continue
 			}
-			priv := foundKey.PrivateKey
+			test = foundKey.Subkeys
+			priv := test[0].PrivateKey
 			if priv == nil {
 				logger.Infof("trying subkeys for foundkey ", id)
 			} else
 			{
 				logger.Infof("found primary key with private key with keyid=%s ", id)
-				break
-			}
-			// Also check subkeys
-			logger.Infof("checking subkeys for private key")
-			for _, subKey := range key.Subkeys {
-				id = subKey.PublicKey.KeyIdString()
-				logger.Infof("loaded subkey with keyid=%s", id)
-				foundKey := subKey
-				if foundKey == nil {
-					logger.Infof("loaded subkey with keyid=%s continuing due to foundkey", id)
-					continue
-				}
-				priv := foundKey.PrivateKey
-				if priv == nil {
-					logger.Infof("loaded key with keyid=%s continuing due to priv", id)
-					continue
-				} else
-				{
-					logger.Infof("found subkey with private key with keyid=%s ", id)
-					break
-				}	
-			}
-			if priv == nil {
-				logger.Infof("tried subkeys but did not find private key, continuing with new key ", id)
-				continue
-			} else
-			{
-				logger.Infof("found subkey with private key with keyid=%s ", id)
 				break
 			}
 		}
