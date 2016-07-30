@@ -82,8 +82,7 @@ func (t *PGPTransformer) loadKey(path, wantID, passphrase string) (*openpgp.Enti
 			if priv == nil {
 				logger.Infof("loaded key with keyid=%s continuing due to priv", id)
 				continue
-			}
-			else
+			} else
 			{
 				logger.Infof("found primary key with private key with keyid=%s ", id)
 				break
@@ -101,8 +100,7 @@ func (t *PGPTransformer) loadKey(path, wantID, passphrase string) (*openpgp.Enti
 			if priv == nil {
 				logger.Infof("loaded key with keyid=%s continuing due to priv", id)
 				continue
-			}
-			else
+			} else
 			{
 				logger.Infof("found subkey with private key with keyid=%s ", id)
 				break
