@@ -74,6 +74,13 @@ func (t *PGPTransformer) loadKey(path, wantID, passphrase string) (*openpgp.Enti
 		if strings.HasSuffix(id, wantID) {
 			foundKey = key
 			logger.Infof("loaded key with keyid=%s", id)
+			if foundKey == nil {
+				continue
+			}
+			priv := foundKey.PrivateKey
+			if priv == nil {
+				continue
+			}
 			break
 		}
 	}
